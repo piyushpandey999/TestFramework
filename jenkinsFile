@@ -1,0 +1,28 @@
+pipeline{
+     agent any
+           parameters {
+                 extendedChoice(
+                     name: 'API',
+                     type: 'PT_MULTI_SELECT',
+                     description: 'Select API test classes',
+                     multiSelectDelimiter: ',',
+                     value: 'GetContinents,GetBooking,GetUsers'
+                 )
+             }
+
+         stages {
+            stage('Code Checkout- Github') {
+                     steps {
+                         git 'https://github.com/piyushpandey999/TestFramework.git'
+                     }
+                 }
+               stage('Running Tests') {
+                  steps {
+                      echo "Running test classes: ${params.API}"
+
+                       // ✅ Use Surefire style
+                       sh "mvn clean test -Dtest=${params.API}"
+                     }
+                  }
+               }
+           }
