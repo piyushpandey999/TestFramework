@@ -19,7 +19,13 @@ pipeline{
                       echo "Running test classes: ${params.API}"
 
                        // ✅ Use Surefire style
-                       sh "mvn clean test -Dtest=${params.API}"
+                            // Use bat for Windows or sh for Unix/Linux
+                                           if (isUnix()) {
+                                               sh "mvn clean test -Dtest=${params.API}"
+                                           }
+                                           else {
+                                               bat "mvn clean test -Dtest=${params.API}"
+                                           }
                      }
                   }
                }
