@@ -1,12 +1,10 @@
 pipeline{
      agent any
            parameters {
-                 extendedChoice(
+                 choice(
                      name: 'API',
-                     type: 'PT_MULTI_SELECT',
                      description: 'Select API test classes',
-                     multiSelectDelimiter: ',',
-                     value: 'GetContinents,GetBooking,GetUsers'
+                     choices: ['GetContinents', 'GetUsers', 'GetBooking']
                  )
              }
 
